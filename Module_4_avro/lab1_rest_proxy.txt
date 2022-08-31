@@ -1,0 +1,55 @@
+1. Get cluster Id
+
+curl localhost:8082/v3/clusters
+
+curl http://localhost:8082/v3/clusters/vqG9iexUSDWhYHKeKhZJSA/brokers
+
+curl http://localhost:8082/v3/clusters/vqG9iexUSDWhYHKeKhZJSA/brokers/1001/configs
+    "name":"zookeeper.sync.time.ms"
+
+
+
+2. Create topic
+
+v1
+curl -X POST -H "Content-Type: application/json" --data '{"topic_name": "my-topic"}' "http://localhost:8082/v3/clusters/<cluster-id>/topics"
+curl -X POST -H "Content-Type: application/json" --data '{"topic_name": "test-topic-rest"}' "http://localhost:8082/v3/clusters/sJH9rjwORRi61xHeddQ6Iw/topics"
+
+v2
+curl -X POST -H "Content-Type: application/json" --data '{"topic_name": "my-topic2"}'
+
+
+3. Describe topic
+
+curl -X GET http://localhost:8082/v3/clusters/<cluster-id>/topics/my-topic
+
+
+4. List all topics with CURL, POSTMAN, Kafka Contol Center, AKHQ
+
+curl -X GET http://localhost:8082/v3/clusters/<cluster-id>/topics
+curl -X GET http://localhost:8082/v3/clusters/sJH9rjwORRi61xHeddQ6Iw/topics
+
+http://localhost:9021/clusters/sJH9rjwORRi61xHeddQ6Iw/management/topics?topic_dir=DESC&topic_sort=status
+http://localhost:8180/ui/docker-kafka-server/topic
+
+
+
+5. Send data 
+
+curl -X POST -H "Content-Type: application/json" --data '{ "key": { "type": "JSON", "data": "key2" }, "value": { "type": "JSON", "data": "value2" } }' "http://localhost:8082/v3/clusters/<cluster-id>/topics/my-topic/records"
+
+6. Create a consumer group
+
+curl -X POST -H "Content-Type: application/vnd.kafka.v2+json"  --data '{"name": "myconsumer1", "format": "json", "auto.offset.reset": "earliest"}'   http://localhost:8082/consumers/mygroup
+
+7. Create subscription
+
+curl -X POST -H "Content-Type: application/vnd.kafka.v2+json" --data '{"topics":["my-topic"]}' http://localhost:8082/consumers/mygroup/instances/myconsumer1/subscription
+
+8. Get messages
+
+curl -X GET  -H "Accept: application/vnd.kafka.json.v2+json" http://localhost:8082/consumers/mygroup/instances/myconsumer1/records 
+
+9. Delete consumer group
+
+curl -X DELETE  -H "Content-Type: application/vnd.kafka.v2+json"  http://localhost:8082/consumers/mygroup/instances/myconsumer1

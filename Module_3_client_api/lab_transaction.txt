@@ -1,0 +1,21 @@
+1. Create topic
+docker exec -ti kafka /usr/bin/kafka-topics --create  --bootstrap-server kafka:19092 --replication-factor 2 --partitions 4 --topic events1
+
+
+2. Start simple producer
+from solution project
+
+3. Open localhost:8080, show the LAG
+
+4. Start simple consumer + show the LAG
+5. Start simple consumer with another group + show the log of first consumer
+
+
+6. Start consumer in consumergroup + show the LAG
+7. Start second consumer in consumer group with another group + show the log of first consumer
+
+Explain difference between transaction in Kafka and RDBMS
+8. Transaction start non transactional producer + transactional consumer, check that consumer
+9.
+
+
