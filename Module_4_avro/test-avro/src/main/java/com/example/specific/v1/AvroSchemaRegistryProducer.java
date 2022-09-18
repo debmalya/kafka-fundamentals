@@ -32,10 +32,10 @@ public class AvroSchemaRegistryProducer<T> {
 
         // copied from avro examples
         Customer customer = Customer.newBuilder()
-                .setAge(34)
-//                .setAutomatedEmail(false)
+//                .setAge(34)
+                .setAutomatedEmail(false)
                 .setFirstName("John")
-                .setLastName("Doe")
+//                .setLastName("Doe")
                 .setHeight(178f)
                 .setWeight(75f)
                 .build();

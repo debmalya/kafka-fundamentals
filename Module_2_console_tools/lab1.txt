@@ -1,5 +1,5 @@
 1. Create topic
-docker exec -ti kafka1 /usr/bin/kafka-topics --create  --bootstrap-server kafka1:19092,kafka2:19093,kafka3:19094 --replication-factor 2 --partitions 4 --topic delivery_test_vo
+docker exec -ti kafka1 /usr/bin/kafka-topics --create  --bootstrap-server kafka1:19092,kafka2:19093,kafka3:19094 --replication-factor 2 --partitions 4 --topic test_vo
 
 Create topic with Replication factor = 3
 topic with Replication factor = 3 means Kafka keeps that topic-partition log in 3 different places.
@@ -29,7 +29,7 @@ with the leader including leader. If not, it returns an error and not produced.
 
 
 3. Send data
-docker exec -ti kafka1 /usr/bin/kafka-console-producer --bootstrap-server kafka1:19092,kafka2:19093,kafka3:19094 --topic delivery_test_vo
+docker exec -ti kafka1 /usr/bin/kafka-console-producer --bootstrap-server kafka1:19092,kafka2:19093,kafka3:19094 --topic test_vo
 
 
 4. Read the data online and show order and from beginning
@@ -105,6 +105,7 @@ _schema             - is not a default kafka topic (at least at kafka 8,9). It i
 
 
 docker exec -ti kafka1 /usr/bin/kafka-topics --bootstrap-server kafka1:19092,kafka2:19093,kafka3:19094 --describe --topic __consumer_offsets
+
 
 
 docker exec -ti kafka1 /usr/bin/kafka-console-consumer --bootstrap-server kafka1:19092,kafka2:19093,kafka3:19094 --topic __consumer_offsets --from-beginning
