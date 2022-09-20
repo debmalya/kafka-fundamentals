@@ -77,19 +77,21 @@
 			<plugin>
 				<groupId>org.apache.avro</groupId>
 				<artifactId>avro-maven-plugin</artifactId>
-				<version>1.9.2</version>
+				<version>1.10.1</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>schema</goal>
+							<goal>protocol</goal>
+							<goal>idl-protocol</goal>
 						</goals>
 						<configuration>
 							<sourceDirectory>${project.basedir}/src/main/resources/avro</sourceDirectory>
-							<outputDirectory>${project.build.directory}/generated/avro</outputDirectory>
-							<imports>
-								<import>${project.basedir}/src/main/resources/avro/Purchase.avsc</import>
-							</imports>
+							<stringType>String</stringType>
+							<createSetters>false</createSetters>
+							<enableDecimalLogicalType>true</enableDecimalLogicalType>
+							<fieldVisibility>private</fieldVisibility>
 						</configuration>
 					</execution>
 				</executions>
