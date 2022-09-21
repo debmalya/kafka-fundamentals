@@ -49,13 +49,17 @@ public class JoinPurchasePayments {
 		final Serde<Payment> paymentAvroSerde = new SpecificAvroSerde<>();
 		paymentAvroSerde.configure(map, isKeySerde);
 
-		final KStream<String, PayedPurchase> joined = purchases.join(payments.selectKey((k, v) -> String.valueOf(v.getPurchaseId())),
-				(purchase, payment) -> PayedPurchase
-						.newBuilder().setPaymentId(payment.getId()).setPurchaseId(payment.getPurchaseId())
-						.setProduct(purchase.getProduct()).build(), /* ValueJoiner */
-				JoinWindows.of(Duration.ofHours(1)), StreamJoined.with(Serdes.String(), /* key */
-						purchaseAvroSerde, /* left value */
-						paymentAvroSerde) /* right value */
+		KStream<String, Payment> keyedPayments =
+				payments.selectKey((k, v) -> String.valueOf(v.getPurchaseId()));
+
+		final KStream<String, PayedPurchase> joined = purchases.join(keyedPayments,
+				(purchase, payment) -> PayedPurchase.newBuilder()
+											.setPaymentId(payment.getId())
+											.setPurchaseId(payment.getPurchaseId())
+											.setProduct(purchase.getProduct())
+											.build(), /* ValueJoiner */
+				JoinWindows.of(Duration.ofHours(1)),
+				StreamJoined.with(Serdes.String(), /* key */ purchaseAvroSerde, /* left */ paymentAvroSerde) /* right */
 		);
 
 		joined.to("PayedPurchases");

@@ -21,14 +21,20 @@ public class JoinPurchasePaymentDriver {
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
 		props.put(AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, SCHEMA_REGISTRY_URL);
-//
-//		try (final KafkaProducer<String, Payment> producer = new KafkaProducer<>(props)) {
-//			int id = 0;
-//			for (int j = 0; j < 10; j += 2) {
-//				Payment payment = Payment.newBuilder().setId(j + 100).setPurchaseId(j).build();
-//				producer.send(new ProducerRecord<>("Payments", String.valueOf(id), payment));
-//			}
-//		}
+
+		try (final KafkaProducer<String, Payment> producer = new KafkaProducer<>(props)) {
+			int id = 0;
+			for (int j = 0; j < 10; j += 2) {
+				Payment payment = Payment
+						.newBuilder()
+						.setId(j + 100)
+						.setPurchaseId(j)
+						.build();
+
+				producer
+						.send(new ProducerRecord<>("Payments", String.valueOf(id), payment));
+			}
+		}
 	}
 
 }

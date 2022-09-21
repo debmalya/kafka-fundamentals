@@ -20,7 +20,7 @@ public class UpperCaseProcessorExample {
 		streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "processor-example");
 		streamsConfiguration.put(StreamsConfig.CLIENT_ID_CONFIG, "processor-example-client");
 
-		streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+		streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, ":9092");
 
 		streamsConfiguration.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, stringSerde.getClass().getName());
 		streamsConfiguration.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, stringSerde.getClass().getName());
@@ -37,8 +37,7 @@ public class UpperCaseProcessorExample {
 			}
 		}, "source-node");
 
-		topology.addSink("sink-node", "OutputUpperTextLineProcessor", stringSerde.serializer(), stringSerde.serializer(),
-				"uppercase-node");
+		topology.addSink("sink-node", "OutputUpperTextLineProcessor", stringSerde.serializer(), stringSerde.serializer(), "uppercase-node");
 
 		System.out.println(topology.describe());
 		final KafkaStreams streams = new KafkaStreams(topology, streamsConfiguration);

@@ -24,11 +24,11 @@ public class MapFunctionLambdaExample {
 
 		final StreamsBuilder builder = new StreamsBuilder();
 
-		final KStream<String, String> textLines = builder.stream("TextLinesTopic");
+		final KStream<String, String> textLines = builder.stream("InputTextLinesTopic");
 
-		final KStream<String, String> uppercasedWithMapValues = textLines.mapValues(v -> v.toUpperCase());
-
-		uppercasedWithMapValues.to("UppercasedTextLinesTopic");
+		textLines
+  		  .mapValues(v -> v.toUpperCase())
+		  .to("OutputUpperTextLineProcessor");
 
 		final KafkaStreams streams = new KafkaStreams(builder.build(), streamsConfiguration);
 		streams.cleanUp();

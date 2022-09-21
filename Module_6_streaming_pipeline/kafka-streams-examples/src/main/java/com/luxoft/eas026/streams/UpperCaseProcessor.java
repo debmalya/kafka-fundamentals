@@ -19,6 +19,7 @@ public class UpperCaseProcessor implements Processor<String, String, String, Str
 
 		String key = record.key();
 		String transformedValue = record.value().toUpperCase();
+		System.out.println("New value is " + transformedValue);
 		Record<String, String> transformedRecord = new Record<>(key, transformedValue, System.nanoTime());
 		context.forward(transformedRecord);
 	}
