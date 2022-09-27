@@ -30,24 +30,6 @@ public class ExampleConsumer {
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
 
-//		Kafka 50 brokers - 50 nodes - 20 000 msg/s
-//		part 1    => client node 1 - 64GB 10 consumers
-//		part 2	  => client node 2 - 64GB 10 consumers
-//		....
-//		part N	  => client node 5
-//		1 node make 50 consumers -> needs 50 cores
-//		 64GB * 5 + 12 Cores * 5 + 5 network interface
-//		hard drive of this node
-//
-//		part 2    => client node 1 - 64GB 10 consumers
-//		part 1	  => client node 2 - 64GB 10 consumers
-//		....
-//		part N	  => client node 5
-//		1 node make 50 consumers -> needs 50 cores
-//		 64GB * 5 + 12 Cores * 5 + 5 network interface
-//		hard drive of this node
-
-
 
 		try (KafkaConsumer<String, Integer> consumer = new KafkaConsumer<>(props)) {
 			consumer.subscribe(Collections.singleton(args[0]));
