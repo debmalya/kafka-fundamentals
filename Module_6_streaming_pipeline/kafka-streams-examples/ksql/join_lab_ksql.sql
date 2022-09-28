@@ -1,4 +1,9 @@
- 1. In KSQL
+ksql  http://ksqldb-server:8088
+
+SET 'auto.offset.reset'='earliest';
+
+
+1. In KSQL
  
 CREATE STREAM PurchaseStream (id INT KEY, product VARCHAR, left_ts VARCHAR) WITH (KAFKA_TOPIC='PurchaseTopic', VALUE_FORMAT='JSON', TIMESTAMP='left_ts', TIMESTAMP_FORMAT='yyyy-MM-dd''T''HH:mm:ssX', PARTITIONS=4);
  
@@ -19,6 +24,7 @@ INSERT INTO PaymentStream (id, purchaseId, status, right_ts) VALUES (103, 3, 'OK
 INSERT INTO PaymentStream (id, purchaseId, status, right_ts) VALUES (104, 4, 'OK', '2022-01-29T12:08:25Z');
 
 INSERT INTO PaymentStream (id, purchaseId, status, right_ts) VALUES (102, 2, 'OK', '2022-01-20T06:11:18Z');
+
 INSERT INTO PaymentStream (id, purchaseId, status, right_ts) VALUES (102, 2, 'OK', '2022-01-24T06:11:18Z');
 
 

@@ -58,7 +58,7 @@ public class JoinPurchasePayments {
 											.setPurchaseId(payment.getPurchaseId())
 											.setProduct(purchase.getProduct())
 											.build(), /* ValueJoiner */
-				JoinWindows.of(Duration.ofHours(1)),
+				JoinWindows.of(Duration.ofHours(1)), /* for waiting records from right left stream -  */
 				StreamJoined.with(Serdes.String(), /* key */ purchaseAvroSerde, /* left */ paymentAvroSerde) /* right */
 		);
 
