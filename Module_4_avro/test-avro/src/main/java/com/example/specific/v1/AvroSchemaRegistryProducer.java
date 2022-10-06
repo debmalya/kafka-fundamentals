@@ -23,26 +23,19 @@ public class AvroSchemaRegistryProducer<T> {
 
         org.apache.kafka.clients.producer.Producer<String, Customer> producer = new KafkaProducer<String, Customer>(properties);
 
-//        org.apache.kafka.clients.producer.Producer<String, T> producer = new KafkaProducer<String, T>(properties);
+//        org.apache.kafka.clients.producer.Producer<String, T > producer = new KafkaProducer<String, T>(properties);
 
         String topic = "customer-avro";
 
-
-        //  Jackson to get data from json => class
-
         // copied from avro examples
         Customer customer = Customer.newBuilder()
-//                .setAge(34)
-                .setAutomatedEmail(false)
-                .setFirstName("John")
-//                .setLastName("Doe")
+                .setFirstName("Mike")
                 .setHeight(178f)
                 .setWeight(75f)
+//                .setAutomatedEmail(false)
                 .build();
 
-        ProducerRecord<String, Customer> producerRecord = new ProducerRecord<String, Customer>(
-                topic, customer
-        );
+        ProducerRecord<String, Customer> producerRecord = new ProducerRecord<String, Customer>(topic, customer);
 
         System.out.println(customer);
         producer.send(producerRecord, new Callback() {

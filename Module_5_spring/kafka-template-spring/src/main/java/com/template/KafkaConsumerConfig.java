@@ -70,8 +70,7 @@ public class KafkaConsumerConfig {
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> filterKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = kafkaListenerContainerFactory("filter");
-        factory.setRecordFilterStrategy(record -> record.value()
-                .contains("World"));
+        factory.setRecordFilterStrategy(record -> record.value().contains("World"));
         return factory;
     }
 

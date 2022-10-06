@@ -33,7 +33,7 @@ public class TransactionalConsumer2 {
         props.put(ConsumerConfig.ISOLATION_LEVEL_CONFIG, "read_committed");
 
         try (KafkaConsumer<String, Integer> consumer = new KafkaConsumer<>(props)) {
-            consumer.subscribe(Collections.singleton(args[0]));
+            consumer.subscribe(Collections.singleton("topic2"));
             while (true) {
                 ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(2));
                 for (ConsumerRecord<String, Integer> data : records) {

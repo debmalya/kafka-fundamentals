@@ -13,12 +13,9 @@ public class MapFunctionLambdaExample {
 	public static void main(final String[] args) {
 	
 		final Properties streamsConfiguration = new Properties();
-	
 		streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "map-function-lambda-example");
 		streamsConfiguration.put(StreamsConfig.CLIENT_ID_CONFIG, "map-function-lambda-example-client");
-		
 		streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,  "localhost:9092");
-	
 		streamsConfiguration.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 		streamsConfiguration.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 
@@ -28,6 +25,7 @@ public class MapFunctionLambdaExample {
 
 		textLines
   		  .mapValues(v -> v.toUpperCase())
+  		  .filter((k, v) -> v.contains("World"))
 		  .to("OutputUpperTextLineProcessor");
 
 		final KafkaStreams streams = new KafkaStreams(builder.build(), streamsConfiguration);

@@ -54,9 +54,13 @@ public class Pipeline {
 					ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(2));
 					producer.beginTransaction();
 
+
+//					||||||||||||||||||||||||||
+
+
 					for (ConsumerRecord<String, String> data : records) {
 						if (data.value() != null) {
-							producer.send(new ProducerRecord<>(OUT_TOPIC, data.key(), data.value().toUpperCase()));
+							producer.send(new ProducerRecord<>(OUT_TOPIC, data.key().toUpperCase(), data.value().toUpperCase()));
 						}
 					}
 

@@ -31,7 +31,7 @@ public class NonTransactionalConsumer2 {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
 
         try (KafkaConsumer<String, Integer> consumer = new KafkaConsumer<>(props)) {
-            consumer.subscribe(Collections.singleton(args[0]));
+            consumer.subscribe(Collections.singleton("topic2"));
             while (true) {
                 ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(2));
                 for (ConsumerRecord<String, Integer> data : records) {

@@ -38,7 +38,8 @@ public class AvroSchemaRegistryConsumer {
             ConsumerRecords<String, GenericData.Record> recs = kafkaConsumer.poll(10000);
             for (ConsumerRecord<String, GenericData.Record> rec : recs) {
                 GenericData.Record value = rec.value();
-//                value.get("name");
+                value.get("name");
+
                 System.out.printf("{AvroUtilsConsumerUser}: Recieved [key= %s, value= %s]\n", rec.key(), value);
             }
 

@@ -19,6 +19,7 @@ public class ExampleConsumer {
 	private static final String BOOTSTRAP_SERVERS = ":9092";
 	private static final String CONSUMER_GROUP = "first";
 	private static final String OFFSET_RESET = "earliest";
+//	private static final String OFFSET_RESET = "latest"; // default
 
 
 	@SuppressWarnings("boxing")
@@ -29,12 +30,21 @@ public class ExampleConsumer {
 		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, OFFSET_RESET);
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
+		props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1000);
 
 
 		try (KafkaConsumer<String, Integer> consumer = new KafkaConsumer<>(props)) {
 			consumer.subscribe(Collections.singleton(args[0]));
 			while (true) {
+
 				ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(2));
+//				batch 1 ~ 1000
+//				batch 2 ~ 1000
+
+
+
+
+
 				for (ConsumerRecord<String, Integer> data : records) {
 					LOG.info("key = {}, value = {} => partition = {}, offset= {}", data.key(), data.value(), data.partition(), data.offset());
 				}

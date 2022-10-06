@@ -11,7 +11,7 @@ object Backpressure extends App {
     el + 100
   }
 
-  val flowWithBuffer = flow.buffer(10, overflowStrategy = OverflowStrategy.dropHead)
+  val flowWithBuffer = flow.buffer(3, overflowStrategy = OverflowStrategy.backpressure)
 
   val sinkSlow = Sink.foreach[Int] { el =>
     Thread.sleep(1000)
@@ -25,9 +25,4 @@ object Backpressure extends App {
     .via(flowWithBuffer).async
     .to(sinkSlow)
     .run()
-
-
-
-
-
 }

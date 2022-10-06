@@ -17,7 +17,7 @@ kafka-topics \
 kafka-topics \
   --bootstrap-server kafka1:19092 \
   --describe \
-  --topic test_vo
+  --topic unordered_vo
 
 # 2 List all topics
 kafka-topics \
@@ -131,7 +131,8 @@ kafka-topics \
 # partitions without followers
 kafka-topics \
   --bootstrap-server kafka1:19092 \
-  --describe --under-replicated-partitions
+  --describe \
+  --under-replicated-partitions
 
 # partitions without lagging
 kafka-topics \

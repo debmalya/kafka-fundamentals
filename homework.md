@@ -46,7 +46,7 @@
       4. Add rest controller
       5. Modify spring boot to work in async (parallel) mode
 
-5. Module 6: Streaming Pipelines (Kafka Streams + KSQL + Kafka Connect vs Akka Streams vs Spark Streaming vs Flink)
+6. Module 6: Streaming Pipelines (Kafka Streams + KSQL + Kafka Connect vs Akka Streams vs Spark Streaming vs Flink)
     1. Homework:
        1. Choose the way how read data from Kafka topic with 50 partitions
        2. Try to use checkpoint mechanism 
@@ -54,6 +54,6 @@
        4. Check the backpressure
     2. 
 
-6. Module 7: Kafka Monitoring
+7. Module 7: Kafka Monitoring
    1. Homework:
       1. Build several metrics in Grafana

@@ -1,7 +1,7 @@
 import akka.actor.ActorSystem
 import akka.kafka.scaladsl.{Consumer, Producer}
 import akka.kafka.{ConsumerSettings, ProducerSettings, Subscriptions}
-import akka.stream.ActorMaterializer
+import akka.stream.{ActorMaterializer, OverflowStrategy}
 import akka.stream.scaladsl.Source
 import com.typesafe.config.ConfigFactory
 import org.apache.kafka.clients.consumer.ConsumerRecord
@@ -22,9 +22,12 @@ object Pipeline extends App {
   val sourceKafka = Consumer
     .plainSource(consumerSettings, Subscriptions.topics("akka-stream-test-in"))
 
+
+
   sourceKafka.async  // 1 core
     .map{element => element.value().toUpperCase}.async // 1 core
     .map(value => new ProducerRecord[String, String]("akka-stream-test-out", value))
+    .buffer(3, overflowStrategy = OverflowStrategy.dropNew)
     .runWith(Producer.plainSink(producerSettings))
 }
 

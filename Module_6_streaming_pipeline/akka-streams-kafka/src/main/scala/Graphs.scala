@@ -68,7 +68,7 @@ object Graphs extends App {
     }
   )
 
-//  sourceToTwoSinkGraph.run()
+  sourceToTwoSinkGraph.run()
 
 
   val input = Source(1 to 1000)
@@ -103,7 +103,7 @@ object Graphs extends App {
     }
   )
 
-//  balanceGraph.run()
+  balanceGraph.run()
 
 
   val sourceTaxiRideInProgress = Source(
@@ -157,7 +157,7 @@ object Graphs extends App {
     }
   )
 
-  sourceTaxiRideInProgress.to(sinkGraph).run()
+//  sourceTaxiRideInProgress.to(sinkGraph).run()
 
 
 }

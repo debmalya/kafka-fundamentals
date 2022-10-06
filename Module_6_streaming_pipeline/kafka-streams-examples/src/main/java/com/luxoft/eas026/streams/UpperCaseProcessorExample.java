@@ -30,7 +30,7 @@ public class UpperCaseProcessorExample {
 
 		topology.addSource("source-node", stringSerde.deserializer(), stringSerde.deserializer(), "InputTextLinesTopic");
 
-		topology.addProcessor("uppercase-node",new ProcessorSupplier<String, String, String, String>() {
+		topology.addProcessor("uppercase-node", new ProcessorSupplier<String, String, String, String>() {
 			@Override
 			public Processor<String, String, String, String> get() {
 				return new UpperCaseProcessor();

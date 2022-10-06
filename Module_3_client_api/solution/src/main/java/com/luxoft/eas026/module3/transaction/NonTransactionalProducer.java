@@ -48,6 +48,8 @@ public class NonTransactionalProducer {
 
             } catch (InterruptedException | ExecutionException e) {
                 LOG.error("Something goes wrong: {}", e.getMessage(), e);
+
+
             } finally {
                 producer.flush();
             }

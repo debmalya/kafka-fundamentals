@@ -16,6 +16,7 @@ object First extends App {
   val sink: Sink[Int, Future[Done]] = Sink.foreach[Int](println)
 
   val graph1: RunnableGraph[NotUsed] = source.to(sink)
+
   val graph2: RunnableGraph[NotUsed] = source.via(flow).to(sink)
 
 
@@ -27,8 +28,8 @@ object First extends App {
 
   val simpleSource = Source(1 to 1000)
 
-  val simpleFlow = Flow[Int].map(_ + 1)
-  val simpleFlow2 = Flow[Int].map(_ * 10)
+  val simpleFlow = Flow[Int].map(x => x + 1)
+  val simpleFlow2 = Flow[Int].map(x => x * 10)
 
   val simpleSink = Sink.foreach[Int](println)
 
@@ -38,7 +39,7 @@ object First extends App {
       .via(simpleFlow2)
       .to(simpleSink)
 
-  //  runnableGraph.run()
+//  runnableGraph.run()
 
 
   val hardFlow3 = Flow[Int].map { x =>
@@ -50,12 +51,14 @@ object First extends App {
     x * 10
   }
 
-  simpleSource
-    .via(hardFlow3)
-    .via(hardFlow4)
-    .via(hardFlow4)
-    .to(simpleSink)
-//  .run()
+  simpleSource.async
+    .via(hardFlow3).async  // = actor1 => thread => 1 core
+    .via(hardFlow4).async  // = actor2 => thread => 1 core
+    .via(hardFlow4).async // = actor3 => thread => 1 core
+    .to(simpleSink)       // = actor4 => thread => 1 core
+  .run()
+
+
 
 
 
@@ -63,7 +66,7 @@ object First extends App {
     .map(element => { println(s"Flow A: $element"); element }).async
     .map(element => { println(s"Flow B: $element"); element }).async
     .map(element => { println(s"Flow C: $element"); element })
-  .runWith(Sink.ignore)
+//  .runWith(Sink.ignore)
 
 
 }

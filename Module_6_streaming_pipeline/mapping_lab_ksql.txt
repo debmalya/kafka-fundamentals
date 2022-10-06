@@ -23,7 +23,7 @@ SELECT * FROM CheckingResult EMIT CHANGES;
 SELECT Ucase(line) FROM CheckingResult EMIT CHANGES;
 SELECT Lcase(line) FROM CheckingResult EMIT CHANGES;
 
-CREATE STREAM CheckingResultSnapshot1 WITH (KAFKA_TOPIC='OutputUpperTextLineProcessorVO',  VALUE_FORMAT='KAFKA') AS SELECT Lcase(line) FROM CheckingResult;
+CREATE STREAM OutputUpperTextLineProcessor2 WITH (KAFKA_TOPIC='OutputUpperTextLineProcessor',  VALUE_FORMAT='KAFKA') AS SELECT Ucase(line) FROM  CheckingSource;
 
 SELECT * FROM CheckingResultSnapshot1 EMIT CHANGES;
 

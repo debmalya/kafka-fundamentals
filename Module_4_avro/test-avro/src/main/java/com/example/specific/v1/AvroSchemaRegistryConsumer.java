@@ -16,7 +16,7 @@ public class AvroSchemaRegistryConsumer {
         Properties properties = new Properties();
         // normal consumer
         properties.setProperty("bootstrap.servers", "127.0.0.1:9092");
-        properties.put("group.id", "customer-consumer-group-v1-02");
+        properties.put("group.id", "customer-consumer-group-v1-04");
         properties.put("auto.commit.enable", "false");
         properties.put("auto.offset.reset", "earliest");
 
