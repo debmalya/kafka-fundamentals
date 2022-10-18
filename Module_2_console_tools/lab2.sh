@@ -11,12 +11,14 @@ kafka-topics \
   --bootstrap-server kafka1:19092 \
   --replication-factor 2 \
   --partitions 3 \
-  --topic unordered_vo
+  --topic model-vo-18
 
 # 2. Send data
 kafka-console-producer \
   --bootstrap-server kafka1:19092 \
-  --topic unordered_vo
+  --topic model-vo-18 \
+  --property parse.key=true \
+  --property key.separator=,
 
 k1,v1
 k2,v2
@@ -27,7 +29,7 @@ k5,v5
 # Check that all records in different partitions
 kafka-console-consumer \
   --bootstrap-server kafka1:19092 \
-  --topic unordered_vo \
+  --topic model-vo-18 \
   --property print.key=true \
   --property key.separator="," \
   --property print.partition=true \
