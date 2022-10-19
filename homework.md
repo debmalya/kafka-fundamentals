@@ -19,17 +19,21 @@
        8. Read topic with 2 partitions with 2 consumers in one consumer group and different consumer group
        9. Choose optimal number of consumers for reading topic with 4 partitions
        10. Write messages with min latency
-       11. Write messages with max compression
+       11. Write messages with max compression max throughput
     2. Theory
 
 3. Module 3: Java, Scala, Python API + others languages (via Confluent Rest Services) 
    1. Homework:
-      1. build simple consumer and producer
-      2. add one more consumer to consumer group
-      3. write consumer which read 3 records from 1st partition
-      4. add writing to another topic 
-      5. add transaction
-   2. Theory:
+      1. You need to write an application that will do the following: 
+         1. Generate messages and produce messages to the source topic
+         2. Read messages 3 last records from the source topic
+         3. Add one more consumer to consumer group, find the assignment consumers to the partitions in the log
+         4. Add writing to another topic
+         5. Add transaction
+      2. You need to write an application that will do the following (topic part number = 3):
+         1. Producer: Read data from a CSV file, which can be downloaded from the link - https://www.kaggle.com/sootersaalu/amazon-top-50-bestselling-books-2009-2019, serialize them into JSON, and write to the books topic of the locally deployed Apache Kafka service.
+         2. Consumer: Read the data from the books topic and print the last 5 records (with the maximum offset value) from each partition to stdout to the console. When reading a topic, only 15 records can be stored in memory at the same time.
+    2. Theory:
 4. Module 4: AVRO + Schema Registry
    1. Homework:
       1. Add avro schema
