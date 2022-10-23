@@ -24,15 +24,14 @@
 
 3. Module 3: Java, Scala, Python API + others languages (via Confluent Rest Services) 
    1. Homework:
-      1. You need to write an application that will do the following: 
-         1. Generate messages and produce messages to the source topic
-         2. Read messages 3 last records from the source topic
-         3. Add one more consumer to consumer group, find the assignment consumers to the partitions in the log
-         4. Add writing to another topic
-         5. Add transaction
-      2. You need to write an application that will do the following (topic part number = 3):
+      1. Write an application that will do the following: 
+         1. Producer: Generate messages and write to the source topic with round-robin strategy (optional: programmatically)
+         2. Write the Consumer (with subscribe option) which will read messages from beginning, fix commit offset only after process data
+         3. Add one more Consumer to consumer group, find the assignment consumers to the partitions in the log
+         4. Consumer: Add writing to another topic with transaction
+      2. Write an application that will do the following (topic part number = 3):
          1. Producer: Read data from a CSV file, which can be downloaded from the link - https://www.kaggle.com/sootersaalu/amazon-top-50-bestselling-books-2009-2019, serialize them into JSON, and write to the books topic of the locally deployed Apache Kafka service.
-         2. Consumer: Read the data from the books topic and print the last 5 records (with the maximum offset value) from each partition to stdout to the console. When reading a topic, only 15 records can be stored in memory at the same time.
+         2. Write the consumer with Assign option which will Read the data from the books topic and print the last 5 records (with the maximum offset value) from each partition to stdout to the console. When reading a topic, only 15 records can be stored in memory at the same time.
     2. Theory:
 4. Module 4: AVRO + Schema Registry
    1. Homework:
