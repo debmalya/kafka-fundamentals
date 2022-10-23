@@ -52,12 +52,15 @@ public class OnlyLastMessagesConsumer {
                 consumer.seek(entry.getKey(), (entry.getValue()));
             }
 
-            ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(2));
+            while (true) {
+                ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(2));
+
+                for (ConsumerRecord<String, Integer> data : records) {
+                    LOG.info("key = {}, value = {} => partition = {}, offset= {}", data.key(), data.value(), data.partition(), data.offset());
+                }
+            }
 
             // max time
-            for (ConsumerRecord<String, Integer> data : records) {
-                LOG.info("key = {}, value = {} => partition = {}, offset= {}", data.key(), data.value(), data.partition(), data.offset());
-            }
         } catch (Exception e) {
             LOG.error("Something goes wrong: {}", e.getMessage(), e);
         }
