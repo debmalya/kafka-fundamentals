@@ -25,10 +25,10 @@
 3. Module 3: Java, Scala, Python API + others languages (via Confluent Rest Services) 
    1. Homework:
       1. Write an application that will do the following: 
-         1. Producer: Generate messages and write to the source topic with round-robin strategy (optional: programmatically)
-         2. Write the Consumer (with subscribe option) which will read messages from beginning, fix commit offset only after process data
+         1. Producer: Generate messages and write to the source topic with round-robin strategy  1) with null key value 2) ProducerRecord(String topic, Integer partition, K key, V value) (optional: programmatically)
+         2. Write the Consumer (with subscribe method) which will read messages from beginning
          3. Add one more Consumer to consumer group, find the assignment consumers to the partitions in the log
-         4. Consumer: Add writing to another topic with transaction
+         4. Consumer: Add writing to another topic with transaction and fix commit offset only after success writing data
       2. Write an application that will do the following (topic part number = 3):
          1. Producer: Read data from a CSV file, which can be downloaded from the link - https://www.kaggle.com/sootersaalu/amazon-top-50-bestselling-books-2009-2019, serialize them into JSON, and write to the books topic of the locally deployed Apache Kafka service.
          2. Write the consumer with Assign option which will Read the data from the books topic and print the last 5 records (with the maximum offset value) from each partition to stdout to the console. When reading a topic, only 15 records can be stored in memory at the same time.
