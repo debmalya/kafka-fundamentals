@@ -30,8 +30,8 @@
          3. Add one more Consumer to consumer group, find the assignment consumers to the partitions in the log
          4. Consumer: Add writing to another topic with transaction and fix commit offset only after success writing data
       2. Write an application that will do the following (topic part number = 3):
-         1. Producer: Read data from a CSV file, which can be downloaded from the link - https://www.kaggle.com/sootersaalu/amazon-top-50-bestselling-books-2009-2019, serialize them into JSON, and write to the books topic of the locally deployed Apache Kafka service.
-         2. Write the consumer with Assign option which will Read the data from the books topic and print the last 5 records (with the maximum offset value) from each partition to stdout to the console. When reading a topic, only 15 records can be stored in memory at the same time.
+         1. Producer: Using Jackson Read data from a CSV file, which can be downloaded from the link - https://www.kaggle.com/sootersaalu/amazon-top-50-bestselling-books-2009-2019, serialize them into JSON, and write to the books topic of the locally deployed Apache Kafka service.
+         2. Write the consumer with Assign option which will Read last 3 records from each partition from the books topic and print the (with the maximum records value) to the console. When reading a topic, only 9 records can be stored in memory at the same time.
     2. Theory:
 4. Module 4: AVRO + Schema Registry
    1. Homework:
