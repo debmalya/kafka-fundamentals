@@ -2,10 +2,7 @@ package com.luxoft.eas026.module3.simple;
 
 import java.util.Properties;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -37,7 +34,10 @@ public class GeneratorProducer {
 		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 		executor.scheduleAtFixedRate(() -> send(args[0]), 0, 3, TimeUnit.SECONDS); // no blocking
 
-		Runtime.getRuntime().addShutdownHook(new Thread(producer::close));
+//		ExecutorService executorService = Executors.newFixedThreadPool(4);
+//		executorService.submit(() -> send(args[0]));
+//		executorService.awaitTermination(3L, TimeUnit.SECONDS);
+//		Runtime.getRuntime().addShutdownHook(new Thread(producer::close));
 	}
 
 	@SuppressWarnings({ "boxing", "unused" })

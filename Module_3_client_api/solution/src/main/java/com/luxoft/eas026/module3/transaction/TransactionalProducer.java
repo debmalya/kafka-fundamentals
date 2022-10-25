@@ -48,6 +48,11 @@ public class TransactionalProducer {
 
 				throwException();
 
+//				write to DB
+//				send mes using rest API
+//				do some job
+
+//				to status topic
 				RecordMetadata meta2 = producer.send(data2).get();
 				LOG.info("key = {}, value = {} => partition = {}, offset= {}", data2.key(), data2.value(), meta2.partition(), meta2.offset());
 

@@ -40,24 +40,32 @@ public class OnlyLastMessagesConsumer {
             List<PartitionInfo> partitions = consumer.partitionsFor(topic);
             ArrayList<TopicPartition> topicPartitions = new ArrayList<>();
 
-            for (PartitionInfo part: partitions) {
-                topicPartitions.add(new TopicPartition(topic, part.partition()));
-            }
+            topicPartitions.add(new TopicPartition(topic, Integer.parseInt(args[1])));
+
+//            for (PartitionInfo part: partitions) {
+//                topicPartitions.add(new TopicPartition(topic, part.partition()));
+//            }
 
             Map<TopicPartition, Long> endOffsets = consumer.endOffsets(topicPartitions);
 
             consumer.assign(topicPartitions);
 
             for (Map.Entry<TopicPartition, Long> entry : endOffsets.entrySet()) {
-                consumer.seek(entry.getKey(), (entry.getValue()));
+                long newOffsetPosition = entry.getValue() - 5;
+                consumer.seek(entry.getKey(), newOffsetPosition);
             }
 
             while (true) {
-                ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(2));
+                ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(2)); // read from kafka
 
-                for (ConsumerRecord<String, Integer> data : records) {
+                // commit offset => 3
+
+                for (ConsumerRecord<String, Integer> data : records) { // write messages to the console ~ processing
                     LOG.info("key = {}, value = {} => partition = {}, offset= {}", data.key(), data.value(), data.partition(), data.offset());
                 }
+
+
+
             }
 
             // max time

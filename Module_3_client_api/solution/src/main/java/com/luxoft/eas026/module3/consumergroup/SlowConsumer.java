@@ -22,7 +22,7 @@ public class SlowConsumer {
 	private static final Logger LOG = LoggerFactory.getLogger(SlowConsumer.class);
 
 	private static final String BOOTSTRAP_SERVERS = ":9092,:9093,:9094";
-	private static final String GROUP_ID = "first";
+	private static final String GROUP_ID = "second";
 	private static final String OFFSET_RESET = "earliest";
 
 	@SuppressWarnings("boxing")

@@ -7,11 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.consumer.OffsetAndMetadata;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -55,12 +51,10 @@ public class Pipeline {
 					producer.beginTransaction();
 
 
-//					||||||||||||||||||||||||||
-
-
 					for (ConsumerRecord<String, String> data : records) {
 						if (data.value() != null) {
-							producer.send(new ProducerRecord<>(OUT_TOPIC, data.key().toUpperCase(), data.value().toUpperCase()));
+							String transformedValue = data.value().toUpperCase();
+							producer.send(new ProducerRecord<>(OUT_TOPIC, data.key().toUpperCase(), transformedValue));
 						}
 					}
 
@@ -68,7 +62,6 @@ public class Pipeline {
 //					task 2 - upper Case
 //					task 3 - write
 //					task 4 - commit offset
-
 
 					Map<TopicPartition, OffsetAndMetadata> offsets = new HashMap<>();
 					for (TopicPartition partition : records.partitions()) {
@@ -78,7 +71,10 @@ public class Pipeline {
 						offsets.put(partition, new OffsetAndMetadata(offset + 1));
 					}
 
-					producer.sendOffsetsToTransaction(offsets, GROUP_ID);
+//					kafka => kafka (producer)
+//					kafka => RDBS
+
+					producer.sendOffsetsToTransaction(offsets, new ConsumerGroupMetadata(GROUP_ID));
 
 					producer.commitTransaction();
 				}

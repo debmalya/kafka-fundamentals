@@ -38,12 +38,6 @@ public class ExampleConsumer {
 			while (true) {
 
 				ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(2));
-//				batch 1 ~ 1000
-//				batch 2 ~ 1000
-
-
-
-
 
 				for (ConsumerRecord<String, Integer> data : records) {
 					LOG.info("key = {}, value = {} => partition = {}, offset= {}", data.key(), data.value(), data.partition(), data.offset());

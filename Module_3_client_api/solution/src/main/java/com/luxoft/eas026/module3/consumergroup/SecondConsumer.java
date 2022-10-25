@@ -18,7 +18,7 @@ public class SecondConsumer {
     private static final Logger LOG = LoggerFactory.getLogger(SecondConsumer.class);
 
     private static final String BOOTSTRAP_SERVERS = ":9092";
-    private static final String GROUP_ID = "first";
+    private static final String GROUP_ID = "second";
     private static final String OFFSET_RESET = "earliest";
 
     @SuppressWarnings("boxing")
@@ -38,6 +38,9 @@ public class SecondConsumer {
                 for (ConsumerRecord<String, Integer> data : records) {
                     LOG.info("key = {}, value = {} => partition = {}, offset= {}", data.key(), data.value(), data.partition(), data.offset());
                 }
+
+//                wait some time ~ tp process
+
             }
         } catch (Exception e) {
             LOG.error("Something goes wrong: {}", e.getMessage(), e);

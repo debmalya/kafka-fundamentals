@@ -34,18 +34,16 @@ public class NonTransactionalProducer {
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
 
         try (Producer<String, Integer> producer = new KafkaProducer<>(props)) {
-            final ProducerRecord<String, Integer> data1 = new ProducerRecord<>(TOPIC1, 100);
-            final ProducerRecord<String, Integer> data2 = new ProducerRecord<>(TOPIC2, 200);
+            final ProducerRecord<String, Integer> record1 = new ProducerRecord<>(TOPIC1, 100);
+            final ProducerRecord<String, Integer> record2 = new ProducerRecord<>(TOPIC2, 200);
             try {
-                RecordMetadata meta1 = producer.send(data1).get();
-                LOG.info("key = {}, value = {} => partition = {}, offset= {}", data1.key(), data1.value(), meta1.partition(), meta1.offset());
+                RecordMetadata meta1 = producer.send(record1).get();
+                LOG.info("key = {}, value = {} => partition = {}, offset= {}", record1.key(), record1.value(), meta1.partition(), meta1.offset());
 
                 throwException();
 
-                RecordMetadata meta2 = producer.send(data2).get();
-                LOG.info("key = {}, value = {} => partition = {}, offset= {}", data2.key(), data2.value(), meta2.partition(), meta2.offset());
-
-
+                RecordMetadata meta2 = producer.send(record2).get();
+                LOG.info("key = {}, value = {} => partition = {}, offset= {}", record2.key(), record2.value(), meta2.partition(), meta2.offset());
             } catch (InterruptedException | ExecutionException e) {
                 LOG.error("Something goes wrong: {}", e.getMessage(), e);
 
