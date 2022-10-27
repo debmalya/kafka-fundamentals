@@ -1,0 +1,14 @@
+{
+"type" : "record",
+"namespace" : "com.example",
+"name" : "BookReview",
+"fields" : [
+ { "name" : "name" , "type" : "string" },
+ { "name" : "author" , "type" : "string" },
+ { "name" : "userRating" , "type" : "float" },
+ { "name" : "reviews" , "type" : "string" },
+ { "name" : "price" , "type" : "float" },
+ { "name" : "year" , "type" : "int" },
+ { "name" : "genre" , "type" : "string" }
+ ]
+}
